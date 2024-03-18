@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-node
+  labels:
+    app: daemonset-node
+spec:
+  selector:
+    matchLabels:
+      app: daemonset-node
+  template:
+    metadata:
+      labels:
+        app: daemonset-node
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+        - name: var-log
+          mountPath: /var/log
+      volumes:
+      - name: var-log
+        hostPath:
+          path: /var/log
+          type: ""
