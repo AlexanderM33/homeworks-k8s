@@ -15,7 +15,7 @@ spec:
       containers:
       - name: busybox
         image: busybox
-        command: ['sh', '-c', 'while true; do echo $(date -u) "My k8s homework @ Netology sample log" >> /busy/log.txt; sleep 5; done;']
+        command: ['sh', '-c', 'while true; do echo $(date -u) "My k8s homework @ Netology sample log">> /busy/log.txt; sleep 5; done;']
         volumeMounts:
         - name: busybox-volume
           mountPath: "/busy"
