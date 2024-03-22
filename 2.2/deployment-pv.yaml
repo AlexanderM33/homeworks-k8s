@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netology-deployment-pv
+  labels:
+    app: deployment-my-pv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployment-my-pv
+  template:
+    metadata:
+      labels:
+        app: deployment-my-pv
+    spec:
+      volumes:
+      - name: my-pv
+        persistentVolumeClaim:
+          claimName: my-pvc
+      containers:
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'while true; do echo $(date -u) "My k8s homework @ Netology sample log">> /out/log.txt; sleep 5; done;']
+        volumeMounts:
+        - name: my-pv
+          mountPath: /out
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        - name: HTTPS_PORT
+          value: "11443"
+        ports:
+        - containerPort: 8080
+        - containerPort: 11443
+        volumeMounts:
+        - name: my-pv
+          mountPath: /in
