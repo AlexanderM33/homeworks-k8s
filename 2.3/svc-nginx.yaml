@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-nginx #app-nodeport
+spec:
+  selector:
+    app: hw8-deployment
+  ports:
+  - name: nginx
+    protocol: TCP
+    port: 80
+  - name: multitool
+    protocol: TCP
+    port: 8080

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-content
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title><h1 style="color:Tomato;">NETOLOGY HOMEWORK</h1></title>
+      </head>
+      <body>
+        <h1><p style="color:DodgerBlue;">Studying k8s</p></h1>
+      </body>
+    </html>
+  multitool_port: "8080"

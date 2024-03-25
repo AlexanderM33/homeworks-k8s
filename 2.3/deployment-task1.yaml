@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw8-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hw8-deployment
+  template:
+    metadata:
+      labels:
+        app: hw8-deployment
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-vol
+          mountPath: /usr/share/nginx/html/
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: my-content
+              key: multitool_port
+        ports:
+        - containerPort: 8080
+      volumes:
+      - name: nginx-vol
+        configMap:
+          name: my-content
